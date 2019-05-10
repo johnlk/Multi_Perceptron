@@ -1,7 +1,7 @@
 from numpy import array, dot, exp, random
 import mnist
 
-# 58 is my favorite number
+# favorite number
 random.seed(58)
 
 def sigmoid(x):
@@ -49,8 +49,14 @@ class NNet():
     return layer1_output, layer2_output, layer3_output
   
   def predict(self, input_data):
-    # generate the layer outputs, only keep last output
-    return self.generate_layer_output(input_data)[2]
+    last_layer_output = self.generate_layer_output(input_data)[2]
+    max_index = 0
+    max_value = 0.
+    for index in range(10):
+      if last_layer_output[index] > max_value:
+        max_index = index
+        max_value = last_layer_output[index]
+    return max_index
 
   def print_net(self):
     print("Layer 1 weights:")
@@ -69,9 +75,14 @@ layer3 = Layer(10, 16)
 
 perceptron = NNet(layer1, layer2, layer3)
 
-x_train, t_train, x_test, t_test = mnist.load()
+x_train, y_train, x_test, y_test = mnist.load()
+
+print(y_train)
 
 # train for 5k epochs
-#perceptron.train(train_input, train_labels, 5000)
+#perceptron.train(x_train, y_train, 5000)
 
-print(perceptron.predict(x_train[0]))
+#print(perceptron.predict(x_test[0]))
+
+#print(x_test[0])
+#print(t_test[0])

@@ -33,10 +33,16 @@ def init():
     download_mnist()
     save_mnist()
 
+def shape_labels(data):
+  shaped_data = np.zeros((len(data), 10))
+  for i in range(len(data)):
+    shaped_data[i] = [ 0. if j != data[i] else 1. for j in range(10) ]
+  return shaped_data
+
 def load():
     with open("mnist.pkl",'rb') as f:
         mnist = pickle.load(f)
-    return mnist["training_images"], mnist["training_labels"], mnist["test_images"], mnist["test_labels"]
+    return mnist["training_images"], shape_labels(mnist["training_labels"]), mnist["test_images"], shape_labels(mnist["test_labels"])
 
 if __name__ == '__main__':
     init()
