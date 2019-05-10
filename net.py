@@ -1,4 +1,5 @@
 from numpy import array, dot, exp, random
+import mnist
 
 # 58 is my favorite number
 random.seed(58)
@@ -14,7 +15,7 @@ class Layer():
     self.weights = 2 * random.random((num_inputs, num_nodes)) - 1
 
   def print_weights(self):
-    print self.weights 
+    print(self.weights)
 
 class NNet():
   def __init__(self, layer1, layer2, layer3):
@@ -52,26 +53,25 @@ class NNet():
     return self.generate_layer_output(input_data)[2]
 
   def print_net(self):
-    print "Layer 1 weights:"
+    print("Layer 1 weights:")
     self.layer1.print_weights()
-    print "Layer 2 weights:"
+    print("Layer 2 weights:")
     self.layer2.print_weights()
-    print "Layer 3 weights:"
+    print("Layer 3 weights:")
     self.layer3.print_weights()
 
-# 10 nodes with 3 inputs
-layer1 = Layer(10, 3)
-# 10 nodes with 10 inputs
-layer2 = Layer(10, 10)
-# 1 node with 10 inputs
-layer3 = Layer(1, 10)
+# 16 nodes with 784 inputs
+layer1 = Layer(16, 784)
+# 16 nodes with 16 inputs
+layer2 = Layer(16, 16)
+# 10 nodes with 16 inputs
+layer3 = Layer(10, 16)
 
 perceptron = NNet(layer1, layer2, layer3)
 
-train_input = array([[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]])
-train_labels = array([[0, 0, 1, 1, 1, 1, 0, 0]]).T
+x_train, t_train, x_test, t_test = mnist.load()
 
 # train for 5k epochs
-perceptron.train(train_input, train_labels, 5000)
+#perceptron.train(train_input, train_labels, 5000)
 
-print perceptron.predict(array([[0, 1, 1]]))
+print(perceptron.predict(x_train[0]))
