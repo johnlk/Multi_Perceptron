@@ -10,6 +10,12 @@ def sigmoid(x):
 def arc_sigmoid(x):
   return x * (1 - x)
 
+def compute_loss(error_vector):
+  loss = 0.
+  for i in range(len(error_vector)):
+    loss += sum([element * element for element in error_vector[i] ])
+  return loss
+
 class Layer():
   def __init__(self, num_nodes, num_inputs):
     self.weights = 2 * random.random((num_inputs, num_nodes)) - 1
@@ -41,6 +47,9 @@ class NNet():
       self.layer1.weights += dot(input_data.T, layer1_delta)
       self.layer2.weights += dot(layer1_output.T, layer2_delta)
       self.layer3.weights += dot(layer2_output.T, layer3_delta)
+
+      # layer3 is also the output layer
+      print("loss: ", compute_loss(layer3_error))
 
   def generate_layer_output(self, input_data):
     layer1_output = sigmoid(dot(input_data, self.layer1.weights))
@@ -77,12 +86,10 @@ perceptron = NNet(layer1, layer2, layer3)
 
 x_train, y_train, x_test, y_test = mnist.load()
 
-print(y_train)
+#print(y_train)
 
 # train for 5k epochs
-#perceptron.train(x_train, y_train, 5000)
+perceptron.train(x_train, y_train, 50000)
 
 #print(perceptron.predict(x_test[0]))
 
-#print(x_test[0])
-#print(t_test[0])
