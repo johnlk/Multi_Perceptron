@@ -42,7 +42,7 @@ def shape_labels(data):
 def load():
     with open("mnist.pkl",'rb') as f:
         mnist = pickle.load(f)
-    return mnist["training_images"], shape_labels(mnist["training_labels"]), mnist["test_images"], shape_labels(mnist["test_labels"])
+    return mnist["training_images"], shape_labels(mnist["training_labels"]), mnist["test_images"], mnist["test_labels"]
 
 if __name__ == '__main__':
     init()

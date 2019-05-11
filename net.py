@@ -28,9 +28,11 @@ class NNet():
     self.layer1 = layer1
     self.layer2 = layer2
     self.layer3 = layer3 
+    
+    self.learning_rate = 0.0001
 
   def train(self, input_data, labels, num_epochs):
-    for _ in range(num_epochs):
+    for epoch in range(num_epochs):
       layer1_output, layer2_output, layer3_output = self.generate_layer_output(input_data)
  
       # back propogation steps 
@@ -44,12 +46,13 @@ class NNet():
       layer1_delta = layer1_error * arc_sigmoid(layer1_output)
 
       # update weights after calculating the deltas
-      self.layer1.weights += dot(input_data.T, layer1_delta)
-      self.layer2.weights += dot(layer1_output.T, layer2_delta)
-      self.layer3.weights += dot(layer2_output.T, layer3_delta)
+      self.layer1.weights += dot(input_data.T, layer1_delta) * self.learning_rate
+      self.layer2.weights += dot(layer1_output.T, layer2_delta) * self.learning_rate
+      self.layer3.weights += dot(layer2_output.T, layer3_delta) * self.learning_rate
 
       # layer3 is also the output layer
-      print("loss: ", compute_loss(layer3_error))
+      if epoch % 100 == 0:
+        print("Epoch #: ", epoch, " loss: ", compute_loss(layer3_error))
 
   def generate_layer_output(self, input_data):
     layer1_output = sigmoid(dot(input_data, self.layer1.weights))
@@ -59,13 +62,16 @@ class NNet():
   
   def predict(self, input_data):
     last_layer_output = self.generate_layer_output(input_data)[2]
-    max_index = 0
-    max_value = 0.
-    for index in range(10):
-      if last_layer_output[index] > max_value:
-        max_index = index
-        max_value = last_layer_output[index]
-    return max_index
+    predictions = []
+    for row in last_layer_output:
+      max_index = 0
+      max_value = 0.
+      for index in range(10):
+        if row[index] > max_value:
+          max_index = index
+          max_value = row[index]
+      predictions.append(max_index)
+    return array(predictions)
 
   def print_net(self):
     print("Layer 1 weights:")
@@ -86,10 +92,17 @@ perceptron = NNet(layer1, layer2, layer3)
 
 x_train, y_train, x_test, y_test = mnist.load()
 
-#print(y_train)
-
 # train for 5k epochs
-perceptron.train(x_train, y_train, 50000)
+perceptron.train(x_train, y_train, 1000)
 
-#print(perceptron.predict(x_test[0]))
+expected_y = perceptron.predict(x_test)
+
+# caculating accuracy
+correct = 0
+for i in range(len(y_test)):
+  if y_test[i] == expected_y[i]:
+    correct += 1
+
+accuracy = correct / len(y_test)
+print(accuracy)
 
