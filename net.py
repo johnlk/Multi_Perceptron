@@ -93,7 +93,7 @@ perceptron = NNet(layer1, layer2, layer3)
 x_train, y_train, x_test, y_test = mnist.load()
 
 # train for 5k epochs
-perceptron.train(x_train, y_train, 1000)
+perceptron.train(x_train, y_train, 5000)
 
 expected_y = perceptron.predict(x_test)
 
@@ -104,5 +104,5 @@ for i in range(len(y_test)):
     correct += 1
 
 accuracy = correct / len(y_test)
-print(accuracy)
+print("Accuracy: ", accuracy)
 
