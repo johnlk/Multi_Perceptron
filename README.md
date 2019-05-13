@@ -7,7 +7,7 @@ For those of us who don't know, MNIST is a huge dataset of 60k handwritten digit
 
 ![rick-and-morty-meme](./img/rick-and-morty-meme.jpg)
 
-The current state of the art says a CNN can learn this dataset with something like < 1% error. In fact, there is a tensorflow getting started tutorial where you build such a model. Using their models doesn't feel much like learning, but more like extra credit. 
+The state of the art says a CNN can learn this dataset with something like < 1% error. In fact, there is a tensorflow getting started tutorial where you build such a model. Using their models doesn't feel much like learning, but more like extra credit. 
 
 ![spongebob-meme](./img/spongebob-meme.jpg)
 
@@ -16,15 +16,15 @@ This is in part why I chose a perceptron. I know that I can manually implement s
 ![model-image](./img/model.png)
 
 # Success
-The model despite being a vanilla mulitilayered perceptron with sigmoid activations, it learned this dataset with 89% accuracy after just 1500 epochs. Not bad.
+The model, despite being a vanilla mulitilayered perceptron with sigmoid activations, learned this dataset with 89% accuracy after just 1500 epochs. Not bad.
 
 You can run this program youself with this command:
 ```
 $ python3.7 net.py
 ```
-Output
+and can expect output like:
 
-[output](./img/output.png)
+![output](./img/output.png)
 
 # Future Work
 Maybe I'll experiment with simpler models with less hidden layer neurons. But this project seems like its wrapped up in a neat little bow. Make an issue if you feel like you'd like to see something else implemented. 
