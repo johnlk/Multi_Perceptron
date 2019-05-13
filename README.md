@@ -16,7 +16,7 @@ This is in part why I chose a perceptron. I know that I can manually implement s
 ![model-image](./img/model.png)
 
 # Success
-The model despite being a vanilla mulitilayered perceptron with sigmoid activations, it learned this dataset with xxx accuracy after just xxx epochs. 
+The model despite being a vanilla mulitilayered perceptron with sigmoid activations, it learned this dataset with 89% accuracy after just 1500 epochs. Not bad.
 
 You can run this program youself with this command:
 ```
@@ -24,7 +24,7 @@ $ python3.7 net.py
 ```
 Output
 
-[output]()
+[output](./img/output.png)
 
 # Future Work
 Maybe I'll experiment with simpler models with less hidden layer neurons. But this project seems like its wrapped up in a neat little bow. Make an issue if you feel like you'd like to see something else implemented. 

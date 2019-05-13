@@ -92,8 +92,8 @@ perceptron = NNet(layer1, layer2, layer3)
 
 x_train, y_train, x_test, y_test = mnist.load()
 
-# train for 5k epochs
-perceptron.train(x_train, y_train, 5000)
+# train for 1.5k epochs
+perceptron.train(x_train, y_train, 1500)
 
 expected_y = perceptron.predict(x_test)
 
